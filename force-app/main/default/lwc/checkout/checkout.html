@@ -1,0 +1,43 @@
+<template>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <!-- modal header -->
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                    <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small" ></lightning-icon>
+                </button>
+                
+                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Checkout</h2>
+            </header>
+            <!-- modal body -->
+            <template if:true={products}>
+                <div class="slds-modal__content" id="modal-content-id-1">
+                    <template for:each={products} for:item="product">
+                        <div key={product.Id}>
+                        <lightning-record-view-form record-id={product.Id} object-api-name="Product2" density="compact">
+                            <lightning-output-field field-name="Image__c"></lightning-output-field>
+                            <lightning-output-field field-name="Name"></lightning-output-field>
+                            <lightning-output-field field-name="Description"></lightning-output-field>
+                            <lightning-output-field field-name="Color__c"></lightning-output-field>
+                            <lightning-output-field field-name="Dimension__c"></lightning-output-field>
+                            <lightning-output-field field-name="Price__c"></lightning-output-field>
+                        </lightning-record-view-form>
+                        <hr />
+                        </div>
+                    </template>
+                    <p style="font-size: 1.2rem;" class="slds-float_right slds-p-right_x-small">Total price: {totalPrice}</p>
+                </div>
+            </template>
+            <!-- modal footer start-->
+            <footer class="slds-modal__footer">
+                <lightning-button 
+                    label="Close" title="Close" onclick={closeModal}>
+                </lightning-button>
+                <lightning-button
+                    class="slds-p-left_x-small" variant="brand" label="Buy" title="Compare" onclick={handleClickToBuy}>
+                </lightning-button>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
