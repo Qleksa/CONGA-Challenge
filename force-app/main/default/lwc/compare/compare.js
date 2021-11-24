@@ -1,9 +1,12 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, track, api } from 'lwc';
 
 import getProducts from '@salesforce/apex/ProductController.getProducts';
 
+import { removeFromLocalStorage } from 'c/storageUtils';
+
 export default class Compare extends LightningElement {
-    productsToCompare;
+    @track productsToCompare;
+    @api allProducts;
 
     connectedCallback() {
         let compareProductIds = localStorage.getItem('compareProductIds');
@@ -23,7 +26,15 @@ export default class Compare extends LightningElement {
         this.dispatchEvent(new CustomEvent('closemodal'));
     }
 
-    handleClickOnRemove() {
+    handleClickOnRemove(event) {
+        const productIdToRemove = event.currentTarget.dataset.productId;
+        this.removeProductFromComparingProducts(productIdToRemove);
+    }
 
+    removeProductFromComparingProducts(productId) {
+        removeFromLocalStorage('compareProductIds', productId);
+        this.productsToCompare = this.productsToCompare.filter(product => product.Id !== productId);
+        if (this.productsToCompare.length === 0)
+            this.closeModal();
     }
 }

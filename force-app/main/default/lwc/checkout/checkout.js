@@ -8,7 +8,7 @@ export default class Checkout extends LightningElement {
 
     connectedCallback() {
         let cartProductIds = localStorage.getItem('cartProductIds');
-        if (cartProductIds) {
+        if (cartProductIds !== 'null') {
             cartProductIds = JSON.parse(cartProductIds);
             getProducts({productIds: cartProductIds})
             .then(products => {
@@ -35,6 +35,10 @@ export default class Checkout extends LightningElement {
     }
 
     buyItems() {
-        localStorage.clear();
+        localStorage.setItem('cartProductIds', null);
+    }
+
+    get isBuyDisabled() {
+        return this.products === undefined;
     }
 }

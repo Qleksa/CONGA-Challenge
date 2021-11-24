@@ -1,27 +1,32 @@
 <template>
     <lightning-card>
         <h3 slot="title">All Products</h3>
-        <lightning-button variant="brand" label="Checkout" onclick={handleClickOnCheckout}></lightning-button>
+        <div class="slds-p-left_large">
+            <lightning-button variant="brand" label="Checkout" onclick={handleClickOnCheckout}></lightning-button>
+        </div>
+            
         <template if:true={productList}>
-            <c-custom-datatable-types
-                key-field="Id"
-                data={productList}
-                columns={columns}
-                hide-checkbox-column
-                onrowaction={handleRowAction}>
-            </c-custom-datatable-types>
+            <div class="slds-scrollable_y">
+                <lightning-layout horizontal-align="center" multiple-rows>
+                    <template for:each={productList} for:item="product">
+                        <lightning-layout-item key={product.Id} padding="around-small" size="12" small-device-size="6" medium-device-size="4" large-device-size="3">
+                            <c-product-tile product={product} onopendetails={handleOpenDetails} onaddtocompare={handleAddToCompare} onaddtocart={handleAddToCart}></c-product-tile>
+                        </lightning-layout-item>
+                    </template>
+                </lightning-layout>
+            </div>
         </template>
     </lightning-card>
 
     <template if:true={isDetailModalOpen}>
-        <c-detail product-id={productIdToShowDetailFor} onclosemodal={closeDetailModal}></c-detail>
+        <c-detail product-id={productIdToShowDetailFor} onclosemodal={closeDetailModal} onaddtocompare={handleAddToCompare} onkeyup={handleKeyUp}></c-detail>
     </template>
 
     <template if:true={isCheckoutModalOpen}>
-        <c-checkout onclosemodal={closeCheckoutModal}></c-checkout>
+        <c-checkout onclosemodal={closeCheckoutModal} onkeyup={handleKeyUp}></c-checkout>
     </template>
 
     <template if:true={isPriceCompareModalOpen}>
-        <c-compare onclosemodal={closePriceCompareModal}></c-compare>
+        <c-compare all-products={productList} onclosemodal={closePriceCompareModal} onkeyup={handleKeyUp}></c-compare>
     </template>
 </template>

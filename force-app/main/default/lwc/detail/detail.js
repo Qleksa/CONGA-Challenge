@@ -9,7 +9,9 @@ export default class Detail extends LightningElement {
     product;
 
     handleClickToCompare() {
-        console.log('compare');
+        this.dispatchEvent(new CustomEvent('addtocompare', {
+            detail: this.productId
+        }))
     }
     
     closeModal() {

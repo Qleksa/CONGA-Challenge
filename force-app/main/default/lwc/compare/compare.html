@@ -11,20 +11,21 @@
             </header>
             <!-- modal body -->
             <template if:true={productsToCompare}>
-                <div class="slds-modal__content" id="modal-content-id-1">
+                <div class="slds-modal__content slds-grid" id="modal-content-id-1">
                     <template for:each={productsToCompare} for:item="product">
-                        <lightning-layout key={product.Id}>
-                            <lightning-layout-item>
-                                    <lightning-record-view-form record-id={product.Id} object-api-name="Product2" density="compact">
-                                        <lightning-output-field field-name="Image__c"></lightning-output-field>
-                                        <lightning-output-field field-name="Name"></lightning-output-field>
-                                        <lightning-output-field field-name="Description"></lightning-output-field>
-                                        <lightning-output-field field-name="Color__c"></lightning-output-field>
-                                        <lightning-output-field field-name="Dimension__c"></lightning-output-field>
-                                        <lightning-output-field field-name="Price__c"></lightning-output-field>
-                                    </lightning-record-view-form>
-                            </lightning-layout-item>
-                        </lightning-layout>
+                            <div key={product.Id} class="slds-col">
+                                <button class="slds-button slds-button_icon slds-button_icon-inverse slds-align_absolute-center" data-product-id={product.Id} title="Remove" onclick={handleClickOnRemove}>
+                                    <lightning-icon icon-name="utility:close" alternative-text="remove" variant="error" size="small" ></lightning-icon>
+                                </button>
+                                <lightning-record-view-form record-id={product.Id} object-api-name="Product2">
+                                    <lightning-output-field field-name="Image__c"></lightning-output-field>
+                                    <lightning-output-field field-name="Name"></lightning-output-field>
+                                    <lightning-output-field field-name="Description"></lightning-output-field>
+                                    <lightning-output-field field-name="Color__c"></lightning-output-field>
+                                    <lightning-output-field field-name="Dimension__c"></lightning-output-field>
+                                    <lightning-output-field field-name="Price__c"></lightning-output-field>
+                                </lightning-record-view-form>
+                            </div>
                     </template>
                 </div>
             </template>

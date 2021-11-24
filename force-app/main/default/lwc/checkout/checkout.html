@@ -1,5 +1,5 @@
 <template>
-    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium">
         <div class="slds-modal__container">
             <!-- modal header -->
             <header class="slds-modal__header">
@@ -10,31 +10,43 @@
                 <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Checkout</h2>
             </header>
             <!-- modal body -->
-            <template if:true={products}>
-                <div class="slds-modal__content" id="modal-content-id-1">
+            <div class="slds-modal__content" id="modal-content-id-1">
+                <template if:true={products}>
                     <template for:each={products} for:item="product">
-                        <div key={product.Id}>
-                        <lightning-record-view-form record-id={product.Id} object-api-name="Product2" density="compact">
-                            <lightning-output-field field-name="Image__c"></lightning-output-field>
-                            <lightning-output-field field-name="Name"></lightning-output-field>
-                            <lightning-output-field field-name="Description"></lightning-output-field>
-                            <lightning-output-field field-name="Color__c"></lightning-output-field>
-                            <lightning-output-field field-name="Dimension__c"></lightning-output-field>
-                            <lightning-output-field field-name="Price__c"></lightning-output-field>
-                        </lightning-record-view-form>
-                        <hr />
-                        </div>
+                        <lightning-layout style="align-items: center;" horizontal-align="spread" key={product.Id}>
+                            <lightning-layout-item class="align-vertical">
+                                <img src={product.Image_URL__c} alt="" width="150" height="150" />
+                            </lightning-layout-item>
+                            <lightning-layout-item class="align-vertical">
+                                <h2 class="slds-text-heading_small">{product.Name}</h2>
+                            </lightning-layout-item>
+                            <lightning-layout-item class="align-vertical">
+                                <p class="slds-text-body_regular">{product.Description}</p> 
+                            </lightning-layout-item>
+                            <lightning-layout-item class="align-vertical">
+                                <p class="slds-text-body_regular">{product.Color__c}</p> 
+                            </lightning-layout-item>
+                            <lightning-layout-item class="align-vertical">
+                                <p class="slds-text-body_regular">{product.Dimension__c}</p> 
+                            </lightning-layout-item>
+                            <lightning-layout-item class="align-vertical">
+                                <lightning-formatted-number format-style="currency" value={product.Price__c}></lightning-formatted-number> 
+                            </lightning-layout-item>
+                        </lightning-layout>
                     </template>
                     <p style="font-size: 1.2rem;" class="slds-float_right slds-p-right_x-small">Total price: {totalPrice}</p>
-                </div>
-            </template>
+                </template>
+                <template if:false={products}>
+                    <p class="slds-align_absolute-center">You have no items in your cart.</p>
+                </template>
+            </div>
             <!-- modal footer start-->
             <footer class="slds-modal__footer">
                 <lightning-button 
                     label="Close" title="Close" onclick={closeModal}>
                 </lightning-button>
                 <lightning-button
-                    class="slds-p-left_x-small" variant="brand" label="Buy" title="Compare" onclick={handleClickToBuy}>
+                    class="slds-p-left_x-small" variant="brand" label="Buy" title="Compare" onclick={handleClickToBuy} disabled={isBuyDisabled}>
                 </lightning-button>
             </footer>
         </div>

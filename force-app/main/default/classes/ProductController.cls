@@ -3,7 +3,7 @@ public with sharing class ProductController {
     @AuraEnabled(cacheable=true)
     public static List<Product2> getAllProducts() {
         try {
-            List<Product2> products = [SELECT Id, Name, Description, Image_URL__c FROM Product2];
+            List<Product2> products = [SELECT Id, Name, Description, Image_URL__c, Price__c FROM Product2];
             return products;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());

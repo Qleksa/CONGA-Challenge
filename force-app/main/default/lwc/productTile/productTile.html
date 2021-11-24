@@ -1,0 +1,17 @@
+<template>
+    <div class="slds-m-around_small slds-p-around_small" style="border: 1px solid black; border-radius: 5px;">
+      <div onclick={handleClick} style={backgroundImage} class="tile"></div>
+      <div class="lower-third">
+        <!-- Boat information goes here -->
+        <h1 class="slds-truncate slds-text-heading_medium">{product.Name}</h1>
+        <h2 class="slds-truncate slds-text-heading_small">{product.Description}</h2>
+        <div class="slds-text-body_regular">
+            Price: <lightning-formatted-number maximum-fraction-digits="2" format-style="currency" value={product.Price__c}></lightning-formatted-number>
+            <div class="slds-float_right">
+                <lightning-button-icon icon-name="custom:custom90" variant="bare" alternative-text="Add to cart" size="large" title="Add to compare" onclick={handleClickOnCompare}></lightning-button-icon>
+                <lightning-button-icon icon-name="utility:cart" variant="bare" alternative-text="Add to cart" size="large" title="Add to cart" onclick={handleClickOnBuy}></lightning-button-icon>
+            </div>
+        </div>
+      </div>
+    </div>
+</template>
