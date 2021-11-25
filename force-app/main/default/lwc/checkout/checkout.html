@@ -12,28 +12,29 @@
             <!-- modal body -->
             <div class="slds-modal__content" id="modal-content-id-1">
                 <template if:true={products}>
-                    <template for:each={products} for:item="product">
+                    <c-custom-datatable-types key-field="Id" columns={columns} data={products} hide-checkbox-column hide-table-header></c-custom-datatable-types>
+                    <!-- <template for:each={products} for:item="product">
                         <lightning-layout style="align-items: center;" horizontal-align="spread" key={product.Id}>
-                            <lightning-layout-item class="align-vertical">
+                            <lightning-layout-item>
                                 <img src={product.Image_URL__c} alt="" width="150" height="150" />
                             </lightning-layout-item>
-                            <lightning-layout-item class="align-vertical">
+                            <lightning-layout-item>
                                 <h2 class="slds-text-heading_small">{product.Name}</h2>
                             </lightning-layout-item>
-                            <lightning-layout-item class="align-vertical">
+                            <lightning-layout-item>
                                 <p class="slds-text-body_regular">{product.Description}</p> 
                             </lightning-layout-item>
-                            <lightning-layout-item class="align-vertical">
+                            <lightning-layout-item>
                                 <p class="slds-text-body_regular">{product.Color__c}</p> 
                             </lightning-layout-item>
-                            <lightning-layout-item class="align-vertical">
+                            <lightning-layout-item>
                                 <p class="slds-text-body_regular">{product.Dimension__c}</p> 
                             </lightning-layout-item>
-                            <lightning-layout-item class="align-vertical">
+                            <lightning-layout-item>
                                 <lightning-formatted-number format-style="currency" value={product.Price__c}></lightning-formatted-number> 
                             </lightning-layout-item>
                         </lightning-layout>
-                    </template>
+                    </template> -->
                     <p style="font-size: 1.2rem;" class="slds-float_right slds-p-right_x-small">Total price: {totalPrice}</p>
                 </template>
                 <template if:false={products}>
